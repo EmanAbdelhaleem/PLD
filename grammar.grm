@@ -1,0 +1,97 @@
+"Author" = 'Eman Abdelhaleem'
+"Start Symbol" = <main>       
+               
+! -------- Terminals -------
+var = ('_'| {letter}){alphanumeric}*
+num = ('-'|'+')? {digit}+ ('.' {digit}+)? 
+    
+
+! -------- Rules -------
+
+<main> ::= <stmt_list>
+     
+<stmt_list> ::= <statement>
+             |<statement> <stmt_list>
+                 
+<statement> ::= <assign>
+           | <if>
+           | <switch>
+           | <for_loop>
+           | <while_loop>
+           | <do_while>
+           | <compound_stmt> 
+           
+
+! -------- {} -------
+<compound_stmt> ::= '{' <stmt_list> '}'
+                 
+                               
+! -------- Assignment -------
+<assign> ::= var '=' <expr>
+                
+<expr> ::= <term> '+' <expr>
+           | <term> '-' <expr>
+           | <term>
+        
+           
+<term> ::= <factor> '*' <factor>
+         | <factor> '/' <factor>
+         | <factor> '%' <factor>
+         | <factor>
+         
+<factor> ::= var 
+           | num 
+           | '(' <expr> ')'
+           
+       
+! -------- IF -------
+
+<if> ::= if '('<cond>')' ':' <compound_stmt>
+      | if '('<cond>')' ':' <compound_stmt> else <compound_stmt>
+
+<cond> ::= <expr> <op> <expr>
+        
+<op> ::= '<'|'>'|'<='|'>='|'=='|'!='
+
+
+! -------- Switch -------
+
+<switch> ::= switch '(' <expr> ')' ':' <case>
+
+<case> ::= 'case' <expr> ':' <stmt_list> <case>
+        | <default>
+        | stop
+        
+<default> ::= 'default:' <stmt_list>
+   
+        
+! -------- For -------
+
+<for_loop> ::= for '(' <assign> 'till' <assign> '; step = ' <step> ')' <compound_stmt>
+           
+   
+<step> ::= '--' var
+       | var '--'
+       | '++' var
+       | var '++'
+       | var '+=' num
+       | var '-=' num
+    
+       
+! -------- While | do While -------
+
+<while_loop> ::= while'(' <cond> ')' <compound_stmt>
+
+<do_while> ::= do <compound_stmt> while '(' <cond> ')' 
+            
+            
+           
+
+
+            
+
+           
+
+
+ 
+
